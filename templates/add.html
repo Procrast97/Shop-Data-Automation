@@ -1,0 +1,176 @@
+{% include "header.html" %}
+{% from "bootstrap5/form.html" import render_form %}
+			<!-- Main -->
+				<section id="main" class="container">
+					<header>
+						<h2>Add</h2>
+						<p>Include new shops to your data collection.</p>
+					</header>
+					<div class="row">
+						<div class="col-12">
+
+							<!-- Text -->
+								<section class="box">
+<!--									ADDED MESSAGES TO CHECK IF SHOPS ADDED WORKS - CHECK IF IT WORKS-->
+										{% with messages = get_flashed_messages() %}
+										{% if messages %}
+										{% for message in messages %}
+										<p class="flash">{{ message }}</p>
+										{% endfor %}
+										{% endif %}
+										{% endwith %}
+
+									<div id="choice-form">
+										{{ render_form(form3, novalidate=True) }}
+									</div>
+									<div id="shop-form" style="display:none;">
+									  <form method="POST">
+										{{ form.hidden_tag() }}
+
+										<!-- Toggle between existing and new URL -->
+										<div class="mb-3">
+										  <label class="form-label fw-bold">URL Option:</label><br>
+										  <div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="url_toggle" id="use_existing" value="existing" checked>
+											<label class="form-check-label" for="use_existing">Select Existing URL</label>
+										  </div>
+										  <div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="url_toggle" id="use_new" value="new">
+											<label class="form-check-label" for="use_new">Add New URL</label>
+										  </div>
+										</div>
+
+										<!-- Existing URL dropdown -->
+										<div id="existing_url_field" class="mb-3">
+										  <label class="form-label">Select URL</label>
+										  {{ form.url_choice(class="form-select") }}
+										</div>
+
+										<!-- New URL input -->
+										<div id="new_url_field" class="mb-3" style="display:none;">
+										  <label class="form-label">New URL</label>
+										  {{ form.shop_url(class="form-control", placeholder="https://example.com") }}
+										  <div class="form-text text-muted">
+											  Format must be: https://www.one-pos.com/<strong>shopname</strong>/box_login.asp
+										  </div>
+										</div>
+
+										<div class="mb-3">
+										  <label class="form-label">Shop Name</label>
+										  {{ form.shop_name(class="form-control") }}
+										</div>
+										<div class="mb-3">
+										  <label class="form-label">Location</label>
+										  {{ form.shop_loc(class="form-control") }}
+										</div>
+
+										{{ form.submit(class="btn btn-primary") }}
+									  </form>
+									</div>
+<!--									<div id="shop-form" style="display:none;">-->
+<!--										{{ render_form(form, novalidate=True, button_map={"submit": "primary"}) }}-->
+<!--									</div>-->
+									<div id="items-form" style="display:none;">
+										{{ render_form(form2, novalidate=True, button_map={"submit": "primary"}) }}
+									</div>
+
+								</section>
+
+						</div>
+					</div>
+					<script>
+						document.addEventListener('DOMContentLoaded', function() {
+							const addShops = document.getElementById('add_shops');
+							const addItems = document.getElementById('add_items');
+							const shopForm = document.getElementById('shop-form');
+							const itemsForm = document.getElementById('items-form');
+							const choicesForm = document.getElementById('choice-form')
+
+							addShops.addEventListener('change', function() {
+								if (this.checked) {
+									shopForm.style.display = 'block';
+									itemsForm.style.display = 'none';
+									choicesForm.style.display = 'none';
+									addItems.checked = false;  // uncheck the other
+								} else {
+									shopForm.style.display = 'none';
+								}
+							});
+
+							addItems.addEventListener('change', function() {
+								if (this.checked) {
+									itemsForm.style.display = 'block';
+									shopForm.style.display = 'none';
+									choicesForm.style.display = 'none';
+									addShops.checked = false;  // uncheck the other
+								} else {
+									itemsForm.style.display = 'none';
+								}
+							});
+						});
+					</script>
+					<script>
+						document.addEventListener('DOMContentLoaded', function() {
+							const useExisting = document.getElementById('use_existing');
+							const useNew = document.getElementById('use_new');
+							const existingField = document.getElementById('existing_url_field');
+							const newField = document.getElementById('new_url_field');
+							const urlDropdown = document.getElementById('url_choice');
+							const newUrlField = document.getElementById('shop_url');
+							const shopNameField = document.getElementById('shop_name');
+
+							// Toggle between existing and new URL fields
+							useExisting.addEventListener('change', function() {
+								existingField.style.display = 'block';
+								newField.style.display = 'none';
+							});
+
+							useNew.addEventListener('change', function() {
+								existingField.style.display = 'none';
+								newField.style.display = 'block';
+							});
+
+							// Auto-fill shop name when existing URL is selected
+							urlDropdown.addEventListener('change', function() {
+								const urlId = this.value;
+								if (urlId && urlId !== '0') {
+									fetch('/get_shop_name_by_url', {
+										method: 'POST',
+										headers: { 'Content-Type': 'application/json' },
+										body: JSON.stringify({ url_id: urlId })
+									})
+									.then(response => response.json())
+									.then(data => {
+										if (data.shop_name) {
+											shopNameField.value = data.shop_name;
+										}
+									});
+								}
+							});
+
+							// Validate new URL format on blur
+							newUrlField.addEventListener('blur', function() {
+							const url = this.value.trim();
+
+							// Must match exact structure: https://www.one-pos.com/shopname/box_login.asp
+							const urlPattern = /^https:\/\/www\.one-pos\.com\/[^/]+\/box_login\.asp$/;
+
+							if (url && !urlPattern.test(url)) {
+								this.classList.add('is-invalid');
+								this.classList.remove('is-valid');
+								let feedback = this.nextElementSibling?.nextElementSibling;
+								if (!feedback || !feedback.classList.contains('invalid-feedback')) {
+									feedback = document.createElement('div');
+									feedback.classList.add('invalid-feedback');
+									this.parentNode.appendChild(feedback);
+								}
+								feedback.textContent = 'URL must follow the format: https://www.one-pos.com/shopname/box_login.asp';
+							} else {
+								this.classList.remove('is-invalid');
+								this.classList.add('is-valid');
+							}
+						})})
+					</script>
+				</section>
+
+{% include "footer.html" %}

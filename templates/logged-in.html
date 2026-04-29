@@ -1,0 +1,44 @@
+{% include "header.html" %}
+
+			<!-- Banner -->
+<!--				<section id="banner">-->
+<!--&lt;!&ndash;					<h2>Alpha</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;					<p>Another fine responsive site template freebie by HTML5 UP.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;					<ul class="actions special">&ndash;&gt;-->
+<!--&lt;!&ndash;						<li><a href="#" class="button primary">Sign Up</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;						<li><a href="#" class="button">Learn More</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;					</ul>&ndash;&gt;-->
+<!--				</section>-->
+
+
+					<section class="box special features">
+						<div class="features-row">
+							<section>
+<!--								TODO: Add hover animations for icons.-->
+								<a href="{{ url_for('add') }}"><span id="icon" class="fa-solid fa-file-circle-plus fa-4x" style="color: #63E6BE;"></span></a>
+								<h2><a href="{{ url_for('add') }}">Add URL/Shop</a></h2>
+								<p>Here you can add a new shop to an existing URL link, or add a new URL link with its corresponding shops.</p>
+							</section>
+							<section>
+								<a href="{{ url_for('remove') }}"><span id="icon" class="fa-solid fa-trash-can fa-4x" style="color: #ce2c34;"></span></a>
+								<h2><a href="{{ url_for('remove') }}">Remove URL/Shop</a></h2>
+								<p>Follow the link to remove a shop from a URL, or in order to remove and entire URL entity with its corresponding shops.</p>
+							</section>
+						</div>
+						<div class="features-row">
+							<section>
+								<a href="{{ url_for('amend') }}"><span id="icon" class="fa-brands fa-autoprefixer fa-4x" style="color: #B197FC;"></span></a>
+								<h2><a href="{{ url_for('amend') }}">Amend</a></h2>
+								<p>Amend any mistakes made during the incorporation of new URL links or shop names.</p>
+							</section>
+							<section>
+								<a href="{{ url_for('reports') }}"><span id="icon" class="fa-solid fa-file-lines fa-4x" style="color: #f48f01;"></span></a>
+								<h2><a href="{{ url_for('reports') }}">Reports</a></h2>
+								<p>Generate a report base don the period of your choosing to help manage your stocks from any date.</p>
+							</section>
+						</div>
+					</section>
+				</section>
+
+
+{% include "footer.html" %}

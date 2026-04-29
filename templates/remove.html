@@ -1,0 +1,206 @@
+{% include "header.html" %}
+{% from "bootstrap5/form.html" import render_form, render_field %}
+
+			<!-- Main -->
+				<section id="main" class="container">
+					<header>
+						<h2>Amend</h2>
+						<p>Please select the URL that you would like to amend.
+							Then, select the corresponding shop name that you would also like to make changes to.
+						</p>
+					</header>
+					<div class="row">
+						<div class="col-12">
+
+							<!-- Text -->
+								<section class="box">
+<!--								MESSAGES TO INFORM USER IF CHANGES WHERE MADE OR NOT-->
+									{% with messages = get_flashed_messages() %}
+										{% if messages %}
+											{% for message in messages %}
+												<p class="flash">{{ message }}</p>
+											{% endfor %}
+										{% endif %}
+									{% endwith %}
+
+									<div id="shop-form">
+										<p>PLEASE NOTE: Ticking "Remove URL" deletes the URL and ALL of its linked shops.</p>
+
+										<div class="row">
+
+											<div class="col-6"  style="border-right: 1px solid #e5e5e5; padding-right: 2em;">
+												<h5 class="mb-3">Remove URL / Shop</h5>
+												<form method="POST" action="{{ url_for('remove') }}" id="delete-form">
+													{{ form.csrf_token }}
+													<input type="hidden" name="form_type" value="remove_url_shop">
+													<div class="mb-3">
+														{{ render_field(form.url) }}
+													</div>
+													<div class="mb-3">
+														{{ render_field(form.url_check) }}
+													</div>
+													<div class="mb-3">
+														{{ render_field(form.curr_loc) }}
+													</div>
+													<div class="mb-3">
+														{{ render_field(form.shop_check) }}
+													</div>
+													<div class="d-grid mt-4">
+														{{ render_field(form.submit, button_style="success") }}
+													</div>
+												</form>
+											</div>
+
+											<!-- FORM 2: Remove Item -->
+											<div class="col-6">
+												<h5 class="mb-3">Remove Item</h5>
+												<form method="POST" action="{{ url_for('remove') }}" id="item-form">
+													{{ form2.csrf_token }}
+													<input type="hidden" name="form_type" value="remove_item">
+													<div class="mb-3">
+														{{ render_field(form2.shop_abbr) }}
+													</div>
+													<div class="mb-3">
+														{{ render_field(form2.shop_location) }}
+													</div>
+													<div class="mb-3">
+														{{ render_field(form2.date) }}
+													</div>
+													<div class="mb-3">
+														{{ render_field(form2.item_field) }}
+													</div>
+													<div class="d-grid mt-4">
+														{{ render_field(form2.remove, button_style="warning") }}
+													</div>
+												</form>
+											</div>
+
+											</div>
+										</div>
+									</div>
+								</section>
+
+						</div>
+					</div>
+				</section>
+
+				<script>
+					document.addEventListener('DOMContentLoaded', function () {
+
+					   // ─── FORM 1: URL → curr_loc ───────────────────────────────────────────────
+					   const urlSelect  = document.getElementById('url');
+					   const shopSelect = document.getElementById('curr_loc');
+					   const deleteForm = document.getElementById('delete-form');
+
+					   urlSelect.addEventListener('change', function () {
+						  const urlId = urlSelect.value;
+						  if (!urlId) return;
+
+						  fetch('/get_shops/' + urlId)
+							 .then(res => res.json())
+							 .then(data => {
+								shopSelect.innerHTML = '';
+								data.shops.forEach(shop => {
+								   let opt = document.createElement('option');
+								   opt.value = shop.id;
+								   opt.textContent = shop.name;
+								   shopSelect.appendChild(opt);
+								});
+							 })
+							 .catch(err => console.error('Form 1 shop fetch error:', err));
+					   });
+
+					   deleteForm.addEventListener('submit', function (event) {
+						  const urlChecked  = document.getElementById('url_check').checked;
+						  const shopChecked = document.getElementById('shop_check').checked;
+
+						  if (!urlChecked && !shopChecked) {
+							 alert("Please select either 'Remove URL' or 'Remove Shop' before submitting.");
+							 event.preventDefault();
+							 return;
+						  }
+
+						  const confirmMsg = urlChecked
+							 ? "WARNING: Deleting this URL will remove ALL associated shops. Are you sure?"
+							 : "Are you sure you want to delete this shop?";
+
+						  if (!confirm(confirmMsg)) event.preventDefault();
+					   });
+
+
+					   // ─── FORM 2: shop_name → shop_location → (date + loc) → item_field ────────
+					   const shopNameSelect = document.getElementById('shop_abbr');
+					   const shopLocSelect  = document.getElementById('shop_location');
+					   const dateInput      = document.getElementById('date');
+					   const itemSelect     = document.getElementById('item_field');
+					   const itemForm       = document.getElementById('item-form');
+
+					   // Helper: reload items when both loc and date are set
+					   function reloadItems() {
+						  const locId = shopLocSelect.value;
+						  const date  = dateInput.value;   // format: YYYY-MM-DD from DateField
+						  if (!locId || !date) return;
+
+						  fetch(`/get_items/${locId}/${date}`)
+							 .then(res => res.json())
+							 .then(data => {
+								itemSelect.innerHTML = '';
+								if (data.items.length === 0) {
+								   let opt = document.createElement('option');
+								   opt.textContent = 'No items found for this date';
+								   opt.disabled = true;
+								   itemSelect.appendChild(opt);
+								} else {
+								   data.items.forEach(item => {
+									  let opt = document.createElement('option');
+									  opt.value = item.id;
+									  opt.textContent = item.name;
+									  itemSelect.appendChild(opt);
+								   });
+								}
+							 })
+							 .catch(err => console.error('Item fetch error:', err));
+					   }
+
+					   // shop_name changes → reload shop_location
+					   shopNameSelect.addEventListener('change', function () {
+						  const shopId = shopNameSelect.value;
+						  if (!shopId) return;
+
+						  fetch('/get_shop_locs/' + shopId)
+							 .then(res => res.json())
+							 .then(data => {
+								shopLocSelect.innerHTML = '';
+								data.shop_locs.forEach(loc => {
+								   let opt = document.createElement('option');
+								   opt.value = loc.id;
+								   opt.textContent = loc.name;
+								   shopLocSelect.appendChild(opt);
+								});
+								// Trigger item reload with new loc
+								reloadItems();
+							 })
+							 .catch(err => console.error('Shop loc fetch error:', err));
+					   });
+
+					   // shop_location changes → reload items
+					   shopLocSelect.addEventListener('change', reloadItems);
+
+					   // date changes → reload items
+					   dateInput.addEventListener('change', reloadItems);
+
+					   // Confirm before submitting Form 2
+					   itemForm.addEventListener('submit', function (event) {
+						  const loc  = shopLocSelect.options[shopLocSelect.selectedIndex]?.text || '';
+						  const item = itemSelect.options[itemSelect.selectedIndex]?.text || '';
+						  const date = dateInput.value;
+
+						  if (!confirm(`Remove "${item}" from "${loc}" on ${date}? This cannot be undone.`)) {
+							 event.preventDefault();
+						  }
+					   });
+
+					});
+				</script>
+
+{% include "footer.html" %}

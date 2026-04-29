@@ -1,0 +1,86 @@
+{% include "header.html" %}
+{% from "bootstrap5/form.html" import render_form, render_field %}
+
+			<!-- Main -->
+				<section id="main" class="container">
+					<header>
+						<h2>Amend</h2>
+						<p>Please select the URL that you would like to amend.
+							Then, select the corresponding shop name that you would also like to make changes to.
+						</p>
+					</header>
+					<div class="row">
+						<div class="col-12">
+
+							<!-- Text -->
+								<section class="box">
+									<form method="POST" action="{{ url_for('amend') }}" id="amend-form">
+										{{ form.csrf_token }}
+<!--								MESSAGES TO INFORM USER IF CHANGES WHERE MADE OR NOT-->
+									{% with messages = get_flashed_messages() %}
+										{% if messages %}
+											{% for message in messages %}
+												<p class="flash">{{ message }}</p>
+											{% endfor %}
+										{% endif %}
+									{% endwith %}
+									<div class="row mb-4">
+										<div class="col-md-6">
+											{{ render_field(form.shop_url) }}
+										</div>
+										<div class="col-md-6">
+											{{ render_field(form.new_url, placeholder="Please update your URL here.") }}
+										</div>
+									</div>
+									<div class="row mb-4">
+										<div class="col-md-6">
+											{{ render_field(form.curr_loc) }}
+										</div>
+										<div class="col-md-6">
+											{{ render_field(form.new_loc, placeholder="Please update your Shop name here.") }}
+										</div>
+									</div>
+
+									<div class="d-grid">
+										{{ render_field(form.submit, button_style="success") }}
+									</div>
+									</form>
+								</section>
+
+						</div>
+					</div>
+				</section>
+
+				<script>
+					const urlSelect = document.getElementById('shop_url');
+					const urlInput = document.getElementById('new_url');
+					const shopSelect = document.getElementById('curr_loc');
+					const shopInput = document.getElementById('new_loc');
+					const amendForm = document.getElementById('amend-form')
+
+					// 1. When URL changes: update URL text box AND fetch Shops
+					urlSelect.addEventListener('change', function() {
+						urlInput.value = urlSelect.options[urlSelect.selectedIndex].text;
+
+						fetch('/get_shops/' + urlSelect.value).then(res => res.json()).then(data => {
+							shopSelect.innerHTML = '';
+							data.shops.forEach(shop => {
+								let opt = document.createElement('option');
+								opt.value = shop.id;
+								opt.innerHTML = shop.name;
+								shopSelect.appendChild(opt);
+							});
+							// Trigger shop input update for the first shop in the new list
+							shopSelect.dispatchEvent(new Event('change'));
+						});
+					});
+
+					// 2. When Shop changes: update Shop text box
+					shopSelect.addEventListener('change', function() {
+						if(shopSelect.selectedIndex !== -1) {
+							shopInput.value = shopSelect.options[shopSelect.selectedIndex].text;
+						}
+					});
+				</script>
+
+{% include "footer.html" %}
