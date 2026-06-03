@@ -5,13 +5,37 @@
 				<section id="main" class="container">
 					<header>
 						<h2>Remove</h2>
-						<p>Select the URL or shop you want to remove, or select an individual item by date to delete it from the records.</p>
+						<p>Delete a shop location, an entire URL group, or a single recorded sale item. All deletions are permanent.</p>
 					</header>
 					<div class="row">
 						<div class="col-12">
 
 							<!-- Text -->
 								<section class="box">
+
+									<!-- Instructions -->
+									<div style="background:rgba(206,44,52,0.08); border:1px solid rgba(206,44,52,0.35); border-radius:6px; padding:1em 1.4em; margin-bottom:1.4em; font-size:0.88em;">
+										<strong>&#8505; How to use this page</strong>
+										<div class="row" style="margin-top:0.6em;">
+											<div class="col-6" style="padding-right:1.5em;">
+												<strong>Remove URL / Shop (left form)</strong>
+												<ul style="margin:0.4em 0 0 0; padding-left:1.2em; line-height:1.8em; color:#ccc;">
+													<li>Select a <em>URL</em> from the dropdown, then tick <strong>Remove URL</strong> to delete the entire URL and every shop/location beneath it. <span style="color:#f48f88;">This cannot be undone.</span></li>
+													<li>Or select a <em>Shop Location</em> and tick <strong>Remove Location</strong> to delete only that single location and its sales records.</li>
+													<li>You cannot tick both checkboxes at once.</li>
+												</ul>
+											</div>
+											<div class="col-6">
+												<strong>Remove Item (right form)</strong>
+												<ul style="margin:0.4em 0 0 0; padding-left:1.2em; line-height:1.8em; color:#ccc;">
+													<li>Select a <em>Shop Name</em> — the location list will update automatically.</li>
+													<li>Pick the <em>Shop Location</em>, then choose a <em>Date</em> — the item list will populate with records for that date.</li>
+													<li>Select the specific <em>Item</em> and click Remove. A confirmation prompt will appear first.</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+
 <!--								MESSAGES TO INFORM USER IF CHANGES WHERE MADE OR NOT-->
 									{% with messages = get_flashed_messages() %}
 										{% if messages %}
@@ -22,7 +46,7 @@
 									{% endwith %}
 
 									<div id="shop-form">
-										<p>PLEASE NOTE: Ticking "Remove URL" deletes the URL and ALL of its linked shops.</p>
+										<p style="color:#f48f88; font-size:0.88em;"><strong>&#9888; Warning:</strong> ticking "Remove URL" deletes the URL and ALL of its linked shops and sales data.</p>
 
 										<div class="row">
 

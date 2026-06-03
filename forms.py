@@ -29,8 +29,8 @@ class GenReportForm(FlaskForm):
     shop_loc = SelectField('Shop Location', choices=[], coerce=str )
     ##Period (5, 10, 15, 30 days)
     set_period = SelectField('Period', choices=[
-        ("1", "1"), ("2", "5"), ("3", "10"),
-        ("4", "15"), ("5", "30")
+        ("1", "Last 1 Day"), ("5", "Last 5 Days"), ("10", "Last 10 Days"),
+        ("15", "Last 15 Days"), ("30", "Last 30 Days"),
     ], validators=[Optional()])
     ## Give the user an option to insert a custom date:
     custom_date = BooleanField(label='Custom Date Range')

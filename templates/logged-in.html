@@ -3,29 +3,44 @@
 			<!-- Main -->
 				<section id="main" class="container">
 
+					<!-- Getting started guide -->
+					<section class="box special" style="border-left:4px solid #63E6BE; padding:1.2em 2em; margin-bottom:1.5em;">
+						<h3 style="margin-bottom:0.4em;">&#9654; Getting Started</h3>
+						<p style="font-size:0.9em; color:#bbb; margin-bottom:0.2em;">
+							New here? Follow these steps in order:
+						</p>
+						<ol style="text-align:left; font-size:0.88em; line-height:1.9em; margin:0; padding-left:1.4em; color:#ccc;">
+							<li>Click <strong>Add URL/Shop</strong> and register your POS URL and shop abbreviation, then add each physical location.</li>
+							<li>Return to <strong>Add URL/Shop</strong>, select <em>Add Items</em>, and log your daily sales against the correct location.</li>
+							<li>Head to <strong>Reports</strong> to filter by shop and date range, view a live summary, then export to Excel or PDF.</li>
+							<li>Use <strong>Amend</strong> to correct any typos in URLs or location names at any time.</li>
+							<li>Use <strong>Remove</strong> to delete a specific location, an entire URL/shop group, or a single recorded item.</li>
+						</ol>
+					</section>
+
 					<section class="box special features">
 						<div class="features-row">
 							<section>
 								<a href="{{ url_for('add') }}"><span class="feature-icon fa-solid fa-file-circle-plus fa-4x" style="color: #63E6BE;"></span></a>
-								<h2><a href="{{ url_for('add') }}">Add URL/Shop</a></h2>
-								<p>Here you can add a new shop to an existing URL link, or add a new URL link with its corresponding shops.</p>
+								<h2><a href="{{ url_for('add') }}">Add URL / Shop</a></h2>
+								<p>Register a new POS URL and give it a short abbreviation. Then add one or more physical store locations under it. You can also manually log individual sale transactions here using the <em>Add Items</em> toggle.</p>
 							</section>
 							<section>
 								<a href="{{ url_for('remove') }}"><span class="feature-icon fa-solid fa-trash-can fa-4x" style="color: #ce2c34;"></span></a>
-								<h2><a href="{{ url_for('remove') }}">Remove URL/Shop</a></h2>
-								<p>Follow the link to remove a shop from a URL, or to remove an entire URL entity with its corresponding shops.</p>
+								<h2><a href="{{ url_for('remove') }}">Remove URL / Shop</a></h2>
+								<p>Delete a specific shop location, an entire URL with all its shops, or remove a single logged sale item. Deletions are permanent — use with care.</p>
 							</section>
 						</div>
 						<div class="features-row">
 							<section>
 								<a href="{{ url_for('amend') }}"><span class="feature-icon fa-brands fa-autoprefixer fa-4x" style="color: #B197FC;"></span></a>
 								<h2><a href="{{ url_for('amend') }}">Amend</a></h2>
-								<p>Amend any mistakes made during the incorporation of new URL links or shop names.</p>
+								<p>Correct a URL address or a shop location name after the fact. Select the existing record from the dropdowns, edit the text field that auto-fills, and save.</p>
 							</section>
 							<section>
 								<a href="{{ url_for('reports') }}"><span class="feature-icon fa-solid fa-file-lines fa-4x" style="color: #f48f01;"></span></a>
 								<h2><a href="{{ url_for('reports') }}">Reports</a></h2>
-								<p>Generate a report based on the period of your choosing to help manage your stocks from any date.</p>
+								<p>Filter sales by shop, location, and date range to instantly see totals for transactions, quantity, and revenue. Export the result to Excel or PDF for sharing.</p>
 							</section>
 						</div>
 					</section>

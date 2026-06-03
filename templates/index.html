@@ -1,8 +1,8 @@
 {% include "header.html" %}
 
 				<section id="banner">
-					<h2>Welcome!</h2>
-					<p>Sign in to your account. If you are new, please register to gain excellent management over all your business needs.</p>
+					<h2>Welcome to Vector Digital</h2>
+					<p>A multi-location retail management platform. Track sales, manage shop data, and generate reports — all in one place.</p>
 					<ul class="actions special">
 						<li><a href="{{ url_for('login_page') }}" class="button primary">Sign In</a></li>
 						<li><a href="{{ url_for('register_user') }}" class="button">Register</a></li>
@@ -14,9 +14,39 @@
 
 					<section class="box special">
 						<header class="major">
-							<h2>Stock Control, Automated Report Generation, Automate Emailing Systems, and more.</h2>
+							<h2>Stock Control, Report Generation, Automated Emailing, and more.</h2>
 							<p>Vector Digital focuses on your needs. Whether it is stock control, Excel sheet generation, or automated emailing — we can help.</p>
 						</header>
+					</section>
+
+					<!-- Demo callout -->
+					<section class="box special" style="border-left: 4px solid #63E6BE; padding: 1.5em 2em;">
+						<h3 style="margin-bottom: 0.4em;">&#128275; Try the Live Demo</h3>
+						<p style="margin-bottom: 0.6em;">A demo account with pre-loaded shop and sales data is ready for you to explore.</p>
+						<table style="width:100%; max-width:320px; border-collapse:collapse; font-size:0.95em;">
+							<tr><td style="padding:4px 12px 4px 0; color:#aaa;">Email</td><td><strong>demo@example.com</strong></td></tr>
+							<tr><td style="padding:4px 12px 4px 0; color:#aaa;">Password</td><td><strong>Demo1234!</strong></td></tr>
+						</table>
+						<ul style="margin-top:0.8em; padding-left:1.2em; font-size:0.9em; color:#bbb;">
+							<li>3 shop locations across 1 URL already configured</li>
+							<li>15 sample sales transactions across 5 days in May 2026</li>
+							<li>Go to <strong>Reports</strong>, tick <em>Custom Date Range</em>, and enter <strong>01/05/2026 &rarr; 31/05/2026</strong> to see all data</li>
+						</ul>
+						<a href="{{ url_for('login_page') }}" class="button small primary" style="margin-top:0.5em;">Sign In to Demo</a>
+					</section>
+
+					<!-- How it works -->
+					<section class="box special">
+						<header class="major">
+							<h2>How It Works</h2>
+						</header>
+						<ol style="text-align:left; max-width:600px; margin:0 auto; line-height:2em;">
+							<li><strong>Register / Sign In</strong> — create your account or use the demo credentials above.</li>
+							<li><strong>Add a Shop</strong> — link a POS URL, give it an abbreviation (e.g. <em>VD</em>), and add one or more physical locations (e.g. <em>Central</em>, <em>Causeway Bay</em>).</li>
+							<li><strong>Log Sales Items</strong> — on the same Add page, switch to "Add Items" to manually record individual sale transactions against any shop location.</li>
+							<li><strong>Generate a Report</strong> — filter by shop, location, and date range to view a live summary table with totals, then export to Excel or PDF.</li>
+							<li><strong>Amend or Remove</strong> — correct a URL/location name, or delete outdated records, at any time.</li>
+						</ol>
 					</section>
 
 				</section>

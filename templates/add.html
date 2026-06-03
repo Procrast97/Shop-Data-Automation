@@ -4,13 +4,37 @@
 				<section id="main" class="container">
 					<header>
 						<h2>Add</h2>
-						<p>Include new shops to your data collection.</p>
+						<p>Register a new shop location or log a manual sale transaction.</p>
 					</header>
 					<div class="row">
 						<div class="col-12">
 
 							<!-- Text -->
 								<section class="box">
+
+									<!-- Step guide -->
+									<div style="background:rgba(99,230,190,0.08); border:1px solid rgba(99,230,190,0.35); border-radius:6px; padding:1em 1.4em; margin-bottom:1.4em; font-size:0.88em;">
+										<strong>&#8505; How to use this page</strong>
+										<ul style="margin:0.5em 0 0 0; padding-left:1.2em; line-height:1.8em; color:#ccc;">
+											<li>Select <strong>Add Shops</strong> to register a new shop location under an existing or brand-new POS URL.</li>
+											<li>Select <strong>Add Items</strong> to manually record a single sale transaction against an existing shop location.</li>
+										</ul>
+										<hr style="border-color:rgba(99,230,190,0.2); margin:0.8em 0;">
+										<strong>Add Shops — field guide:</strong>
+										<ul style="margin:0.4em 0 0 0; padding-left:1.2em; line-height:1.8em; color:#ccc;">
+											<li><em>URL Option:</em> pick an existing URL from the dropdown, or switch to "Add New URL" and paste your POS link (must follow the format shown).</li>
+											<li><em>Shop Name:</em> a short uppercase abbreviation for the shop, e.g. <strong>VD</strong>. This groups all locations under one brand.</li>
+											<li><em>Location:</em> the physical store name, e.g. <strong>Central</strong> or <strong>Causeway Bay</strong>. Submit once per location.</li>
+										</ul>
+										<hr style="border-color:rgba(99,230,190,0.2); margin:0.8em 0;">
+										<strong>Add Items — field guide:</strong>
+										<ul style="margin:0.4em 0 0 0; padding-left:1.2em; line-height:1.8em; color:#ccc;">
+											<li><em>Date of Sale:</em> enter in <strong>DD/MM/YYYY</strong> format, e.g. 15/05/2026.</li>
+											<li><em>Shop Location:</em> select the specific location this sale occurred at.</li>
+											<li><em>Price / Quantity:</em> enter numeric values only (no currency symbol).</li>
+										</ul>
+									</div>
+
 <!--									ADDED MESSAGES TO CHECK IF SHOPS ADDED WORKS - CHECK IF IT WORKS-->
 										{% with messages = get_flashed_messages() %}
 										{% if messages %}

@@ -4,6 +4,18 @@
 				<section id="banner">
 					<h2>Sign In</h2>
 					<p>Please fill in your details below to sign in.</p>
+
+					<!-- Demo credentials notice -->
+					<div class="row justify-content-center" style="width:100%; margin-bottom:1em;">
+						<div class="col-lg-5 col-md-7 col-sm-9">
+							<div style="background:rgba(99,230,190,0.12); border:1px solid #63E6BE; border-radius:6px; padding:0.9em 1.2em; text-align:left; font-size:0.9em;">
+								<strong>&#128275; Demo Account</strong> &mdash; use these credentials to explore the app with pre-loaded data:<br>
+								<span style="color:#aaa;">Email:</span> <strong>demo@example.com</strong> &nbsp;|&nbsp;
+								<span style="color:#aaa;">Password:</span> <strong>Demo1234!</strong>
+							</div>
+						</div>
+					</div>
+
 					{% with messages = get_flashed_messages() %}
 					{% if messages %}
 					{% for message in messages %}
