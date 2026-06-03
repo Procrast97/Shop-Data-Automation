@@ -1,25 +1,21 @@
 {% include "header.html" %}
 {% from "bootstrap5/form.html" import render_form %}
 
-<!--TODO: Adjust bootstrap layout of sign in bars.-->
 				<section id="banner">
-					<div class="container">
-    					<div class="row">
-						<h2>Sing In</h2>
-						<p>Please fill in your details below to sign-in.</p>
-						{% with messages = get_flashed_messages() %}
-						{% if messages %}
-						{% for message in messages %}
-						<p class="flash">{{ message }}</p>
-						{% endfor %}
-						{% endif %}
-						{% endwith %}
-							<div class="col-lg-8 col-md-10 mx-auto"></div>
-								{{ render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
-						    </div>
-    					</div>
-  					</div>
+					<h2>Sign In</h2>
+					<p>Please fill in your details below to sign in.</p>
+					{% with messages = get_flashed_messages() %}
+					{% if messages %}
+					{% for message in messages %}
+					<div class="alert alert-warning" role="alert">{{ message }}</div>
+					{% endfor %}
+					{% endif %}
+					{% endwith %}
+					<div class="row justify-content-center" style="width: 100%;">
+						<div class="col-lg-5 col-md-7 col-sm-9" style="text-align: left;">
+							{{ render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+						</div>
+					</div>
 				</section>
-
 
 {% include "footer.html" %}

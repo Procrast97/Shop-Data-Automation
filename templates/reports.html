@@ -68,7 +68,7 @@
 											</div>
 										</div>
 
-										{{ form.submit(novalidate=True, button_map={"submit": "primary"}) }}
+										{{ form.submit(class="btn btn-primary") }}
 									</form>
 									<script>
 										// Add event listener when page loads
@@ -126,7 +126,7 @@
 					<div class="row">
 						<div class="col-12">
 							<!-- Lists -->
-							{% if total_revenue: %}
+							{% if total_revenue %}
 								<section class="box">
 									<div class="container mt-4">
 										<h2>Sales Report</h2>
@@ -177,7 +177,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												{% if results: %}
+												{% if results %}
 													{% for item in results %}
 														<tr>
 															<td>{{ item.date }}</td>

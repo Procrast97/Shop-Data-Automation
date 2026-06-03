@@ -82,11 +82,11 @@
 		appearance: none;
 	}
 
-	#icon {
+	.feature-icon {
 		cursor: pointer;
 	}
 
-	#icon:hover {
+	.feature-icon:hover {
 		animation: shake 0.5s ease;
 	}
 

@@ -1,48 +1,35 @@
-<!--TODO: Makes changes to hyperlinks.-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset=UTF-8">
-		<title>Vector Digital</title>
-
+	<meta charset="UTF-8">
+	<title>Vector Digital</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	{% block styles %}
 	{{ bootstrap.load_css() }}
-	<link
-		href="{{ url_for('static', filename='assets/css/main.css') }}"
-		rel="stylesheet"
-		type="text/css"
-	>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.x.x/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<link href="{{ url_for('static', filename='assets/css/main.css') }}" rel="stylesheet" type="text/css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://kit.fontawesome.com/26efd97010.js" crossorigin="anonymous"></script>
-<!--		<link rel="stylesheet" href="../static/assets/css/main.css">-->
-	<style type="text/css" id="operaUserStyle"></style>
-	<style type="text/css"></style>
-	{% endblock %}
 </head>
-	<body class="landing">
-		<div id="page-wrapper">
+<body class="is-preload landing">
+	<div id="page-wrapper">
 
-			<!-- Header -->
-			<header id="header" class="reveal alt" style="">
-<!--				TODO: Change links to redirect to correct templates-->
-					{% if not current_user.is_authenticated: %}
-						<h1><a href="{{ url_for('index') }}">VD</a></h1>
-					{% else: %}
-						<h1><a href="{{ url_for('dashboard') }}">VD</a></h1>
+		<!-- Header -->
+		<header id="header" class="reveal alt">
+			{% if not current_user.is_authenticated %}
+				<h1><a href="{{ url_for('index') }}">VD</a></h1>
+			{% else %}
+				<h1><a href="{{ url_for('dashboard') }}">VD</a></h1>
+			{% endif %}
+			<nav id="nav">
+				<ul>
+					{% if not current_user.is_authenticated %}
+						<li><a href="{{ url_for('index') }}">Home</a></li>
+						<li><a href="{{ url_for('login_page') }}">Login</a></li>
+						<li><a href="{{ url_for('register_user') }}">Sign Up</a></li>
+					{% else %}
+						<li><a href="{{ url_for('dashboard') }}">Home</a></li>
+						<li><a href="{{ url_for('logout') }}">Logout</a></li>
 					{% endif %}
-					<nav id="nav">
-						<ul>
-							{% if not current_user.is_authenticated: %}
-								<li style="white-space: nowrap;"><a href="{{ url_for('index') }}">Home</a></li>
-								<li style="white-space: nowrap;"><a href="{{ url_for('login_page') }}">Login</a></li>
-								<li style="white-space: nowrap;"><a href="{{ url_for('register_user') }}">Sign Up</a></li>
-							{% else: %}
-								<li style="white-space: nowrap;"><a href="{{ url_for('dashboard') }}">Home</a></li>&nbsp;
-								<li style="white-space: nowrap;"><a href="{{ url_for('logout') }}"></a>Logout</li>
-							{% endif %}
-						</ul>
-					</nav>
-			</header>
-		</div>
-</html>
+				</ul>
+			</nav>
+		</header>
