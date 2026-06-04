@@ -127,7 +127,7 @@
 	}
 
 	body, input, select, textarea {
-		color: #777;
+		color: #444;
 		font-family: "Source Sans Pro", sans-serif;
 		font-size: 16pt;
 		font-weight: 300;
@@ -151,7 +151,7 @@
 		/*}*/
 
 	strong, b {
-		color: #646464;
+		color: #333;
 		font-weight: 400;
 	}
 
@@ -164,7 +164,7 @@
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		color: #646464;
+		color: #333;
 		font-weight: 300;
 		line-height: 1em;
 		margin: 0 0 0.5em 0;
@@ -2037,7 +2037,7 @@
 	}
 
 	header p {
-		color: #999;
+		color: #666;
 		position: relative;
 		margin: 0 0 1.5em 0;
 		font-style: italic;
@@ -2075,7 +2075,7 @@
 		header.major p {
 			display: inline-block;
 			border-top: solid 2px #e5e5e5;
-			color: #777;
+			color: #555;
 			margin: 1.5em 0 0 0;
 			padding: 1.5em 0 0 0;
 			font-style: normal;
@@ -2088,7 +2088,7 @@
 	}
 
 	label {
-		color: #646464;
+		color: #444;
 		display: block;
 		font-size: 0.9em;
 		font-weight: 300;
@@ -2183,7 +2183,7 @@
 		input[type="checkbox"] + label,
 		input[type="radio"] + label {
 			text-decoration: none;
-			color: #777;
+			color: #555;
 			cursor: pointer;
 			display: inline-block;
 			font-size: 1em;
@@ -2710,7 +2710,7 @@
 		}
 
 		table th {
-			color: #646464;
+			color: #444;
 			font-size: 0.9em;
 			font-weight: 300;
 			padding: 0 0.75em 0.75em 0.75em;
@@ -3243,6 +3243,19 @@
 				color: #666 !important;
 			}
 
+		#banner label,
+		#banner .form-label {
+			color: rgba(255,255,255,0.9);
+		}
+
+		#banner input[type="text"],
+		#banner input[type="password"],
+		#banner input[type="email"],
+		#banner select,
+		#banner textarea {
+			color: #444;
+		}
+
 /* Main */
 
 	#main {
@@ -3261,7 +3274,7 @@
 
 			#main > header p {
 				border-top: solid 2px #e5e5e5;
-				color: #777;
+				color: #555;
 				display: inline-block;
 				font-style: normal;
 				margin: 1em 0 0 0;

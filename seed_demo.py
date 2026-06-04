@@ -1,22 +1,77 @@
 import os
+import sys
+import random
+
 os.environ.setdefault('FLASK_KEY', 'demo-seed-key')
 
 from app import app
 from DBModels import db, Users, Urls, Shops, ShopLoc, ItemData
 from werkzeug.security import generate_password_hash
 
-DEMO_EMAIL = "demo@example.com"
+DEMO_EMAIL    = "demo@example.com"
 DEMO_PASSWORD = "Demo1234!"
 DEMO_USERNAME = "demo"
 
+CUSTOMERS = [
+    "John Smith",    "Mary Johnson",  "David Lee",     "Sarah Wong",    "Peter Chan",
+    "Lisa Ng",       "Tom Brown",     "Amy Chen",      "Kevin Ho",      "Rachel Lam",
+    "Michael Yip",   "Emily Tsang",   "James Liu",     "Grace Fung",    "Victor Ma",
+    "Alice Chan",    "Bob Wong",      "Carol Ng",      "Daniel Ho",     "Eva Lam",
+    "Frank Tsui",    "Gary Cheng",    "Helen Yau",     "Ivan Mak",      "Jenny Lo",
+    "Kenneth Pang",  "Linda Kwok",    "Martin Fok",    "Nancy Au",      "Oscar Tong",
+    "Pamela Wu",     "Quinn Sze",     "Roger Hui",     "Stella Lau",    "Terry Yu",
+    "Uma Kwan",      "Vincent Siu",   "Wendy Tam",     "Xavier Yuen",   "Yvonne Ko",
+]
 
-def seed():
+PRODUCTS = [
+    ("iPhone 15 Case",       25),
+    ("Screen Protector",     15),
+    ("Wireless Charger",     80),
+    ("USB-C Cable",          20),
+    ("Power Bank",          120),
+    ("Bluetooth Earphones", 200),
+    ("Phone Stand",          35),
+    ("Laptop Sleeve",        65),
+    ("Smart Watch Band",     30),
+    ("Portable Speaker",    150),
+    ("Keyboard Cover",       45),
+    ("AirPods Case",         55),
+    ("Camera Lens Filter",   75),
+    ("Laptop Stand",        180),
+    ("Tablet Cover",         60),
+    ("iPad Stand",           40),
+    ("Car Mount",            25),
+    ("Screen Cleaning Kit",  10),
+    ("Memory Card 128GB",    55),
+    ("Cable Organizer",      18),
+    ("Pop Socket",           15),
+    ("USB Hub 4-Port",       45),
+    ("HDMI Adapter",         35),
+    ("SD Card Reader",       28),
+    ("Stylus Pen",           40),
+    ("Wireless Mouse",       88),
+    ("Mini Tripod",          38),
+    ("Magnetic Phone Mount", 32),
+    ("LED Desk Light",       95),
+    ("Smart Plug",           55),
+]
+
+
+def seed(force=False):
     with app.app_context():
         db.create_all()
 
-        if db.session.execute(db.select(Users).where(Users.email == DEMO_EMAIL)).scalar():
-            print("Demo data already exists. Skipping.")
-            return
+        existing = db.session.execute(
+            db.select(Users).where(Users.email == DEMO_EMAIL)
+        ).scalar()
+
+        if existing:
+            if not force:
+                print("Demo data already exists. Run with --force to re-seed.")
+                return
+            db.session.delete(existing)
+            db.session.commit()
+            print("Removed existing demo data.")
 
         user = Users(
             username=DEMO_USERNAME,
@@ -40,28 +95,38 @@ def seed():
         db.session.add_all([central, causeway, mongkok])
         db.session.flush()
 
-        items = [
-            # --- 01/05/2026 ---
-            ItemData(date="01/05/2026", shop_name="Central (VD)",      customer="John Smith",   description="iPhone 15 Case",       product_id="C001", qty=2, price="$ 25",  subtotal="$ 50",  loc_id=central.id),
-            ItemData(date="01/05/2026", shop_name="Central (VD)",      customer="Mary Johnson", description="Screen Protector",      product_id="C002", qty=3, price="$ 15",  subtotal="$ 45",  loc_id=central.id),
-            ItemData(date="01/05/2026", shop_name="Causeway Bay (VD)", customer="David Lee",    description="Wireless Charger",      product_id="C003", qty=1, price="$ 80",  subtotal="$ 80",  loc_id=causeway.id),
-            # --- 08/05/2026 ---
-            ItemData(date="08/05/2026", shop_name="Causeway Bay (VD)", customer="Sarah Wong",   description="USB-C Cable",           product_id="C004", qty=2, price="$ 20",  subtotal="$ 40",  loc_id=causeway.id),
-            ItemData(date="08/05/2026", shop_name="Mong Kok (VD)",     customer="Peter Chan",   description="Power Bank",            product_id="C005", qty=1, price="$ 120", subtotal="$ 120", loc_id=mongkok.id),
-            ItemData(date="08/05/2026", shop_name="Mong Kok (VD)",     customer="Lisa Ng",      description="Bluetooth Earphones",   product_id="C006", qty=1, price="$ 200", subtotal="$ 200", loc_id=mongkok.id),
-            # --- 15/05/2026 ---
-            ItemData(date="15/05/2026", shop_name="Central (VD)",      customer="Tom Brown",    description="Phone Stand",           product_id="C007", qty=2, price="$ 35",  subtotal="$ 70",  loc_id=central.id),
-            ItemData(date="15/05/2026", shop_name="Central (VD)",      customer="Amy Chen",     description="Laptop Sleeve",         product_id="C008", qty=1, price="$ 65",  subtotal="$ 65",  loc_id=central.id),
-            ItemData(date="15/05/2026", shop_name="Causeway Bay (VD)", customer="Kevin Ho",     description="Smart Watch Band",      product_id="C009", qty=3, price="$ 30",  subtotal="$ 90",  loc_id=causeway.id),
-            # --- 22/05/2026 ---
-            ItemData(date="22/05/2026", shop_name="Mong Kok (VD)",     customer="Rachel Lam",   description="Portable Speaker",      product_id="C010", qty=1, price="$ 150", subtotal="$ 150", loc_id=mongkok.id),
-            ItemData(date="22/05/2026", shop_name="Mong Kok (VD)",     customer="Michael Yip",  description="Keyboard Cover",        product_id="C011", qty=2, price="$ 45",  subtotal="$ 90",  loc_id=mongkok.id),
-            ItemData(date="22/05/2026", shop_name="Central (VD)",      customer="Emily Tsang",  description="AirPods Case",          product_id="C012", qty=1, price="$ 55",  subtotal="$ 55",  loc_id=central.id),
-            # --- 29/05/2026 ---
-            ItemData(date="29/05/2026", shop_name="Causeway Bay (VD)", customer="James Liu",    description="Camera Lens Filter",    product_id="C013", qty=2, price="$ 75",  subtotal="$ 150", loc_id=causeway.id),
-            ItemData(date="29/05/2026", shop_name="Causeway Bay (VD)", customer="Grace Fung",   description="Laptop Stand",          product_id="C014", qty=1, price="$ 180", subtotal="$ 180", loc_id=causeway.id),
-            ItemData(date="29/05/2026", shop_name="Mong Kok (VD)",     customer="Victor Ma",    description="Tablet Cover",          product_id="C015", qty=2, price="$ 60",  subtotal="$ 120", loc_id=mongkok.id),
+        locs = [
+            (central,  "Central (VD)"),
+            (causeway, "Causeway Bay (VD)"),
+            (mongkok,  "Mong Kok (VD)"),
         ]
+
+        rng = random.Random(42)
+        items = []
+        pid = 1
+
+        for day in range(1, 32):
+            date_str = f"{day:02d}/05/2026"
+            n = rng.randint(5, 10)
+            for _ in range(n):
+                loc_obj, loc_name = rng.choice(locs)
+                customer         = rng.choice(CUSTOMERS)
+                desc, unit_price = rng.choice(PRODUCTS)
+                qty              = rng.randint(1, 3)
+                subtotal         = unit_price * qty
+                items.append(ItemData(
+                    date=date_str,
+                    shop_name=loc_name,
+                    customer=customer,
+                    description=desc,
+                    product_id=f"C{pid:03d}",
+                    qty=qty,
+                    price=f"$ {unit_price}",
+                    subtotal=f"$ {subtotal}",
+                    loc_id=loc_obj.id,
+                ))
+                pid += 1
+
         db.session.add_all(items)
         db.session.commit()
 
@@ -69,11 +134,12 @@ def seed():
         print(f"  User:      {DEMO_EMAIL} / {DEMO_PASSWORD}")
         print(f"  Shop:      VD (Vector Digital)")
         print(f"  Locations: Central, Causeway Bay, Mong Kok")
-        print(f"  Items:     15 across 5 days in May 2026")
+        print(f"  Items:     {len(items)} across all 31 days in May 2026")
         print()
         print("To view all demo items in Reports, use:")
-        print("  Custom Date Range  ->  From: 2026-05-01  /  To: 2026-05-31")
+        print("  Custom Date Range  ->  From: 01/05/2026  /  To: 31/05/2026")
 
 
 if __name__ == "__main__":
-    seed()
+    force = "--force" in sys.argv or "-f" in sys.argv
+    seed(force=force)
