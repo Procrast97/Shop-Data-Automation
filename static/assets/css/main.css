@@ -3928,3 +3928,498 @@
 			}
 
 	}
+
+/* ============================================================
+   THEME — Dark Navy / White / Gold
+   Palette:
+     --navy-deep  #0d1b2a   --navy      #0f1f35
+     --navy-mid   #1b2d45   --navy-lt   #263f5e
+     --gold       #c9a84c   --gold-lt   #e0bf6b   --gold-dk   #b5913a
+     --text       #2a3a4a   --muted     #5a6f84
+     --bg         #f0f4f8
+   ============================================================ */
+
+/* --- Global ------------------------------------------------ */
+body {
+	background: #f0f4f8;
+}
+body, input, select, textarea {
+	color: #2a3a4a;
+}
+a {
+	color: #c9a84c;
+	border-bottom-color: transparent;
+}
+a:hover {
+	color: #e0bf6b;
+}
+strong, b {
+	color: #0f1f35;
+}
+h1, h2, h3, h4, h5, h6 {
+	color: #0f1f35;
+}
+hr {
+	border-bottom-color: rgba(13,27,42,0.1);
+}
+header p {
+	color: #5a6f84;
+}
+header.major p {
+	color: #5a6f84;
+	border-top-color: rgba(13,27,42,0.1);
+}
+
+/* --- Box --------------------------------------------------- */
+.box {
+	box-shadow: 0 2px 12px rgba(13,27,42,0.08);
+	border-radius: 8px;
+	transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.box:hover {
+	box-shadow: 0 6px 24px rgba(13,27,42,0.13);
+	transform: translateY(-2px);
+}
+.box.alt,
+.box.alt:hover {
+	box-shadow: none;
+	transform: none;
+}
+/* Suppress lift on boxes that contain forms */
+.box:has(form):hover {
+	transform: none;
+	box-shadow: 0 2px 12px rgba(13,27,42,0.08);
+}
+
+/* --- Form -------------------------------------------------- */
+label {
+	color: #2a3a4a;
+}
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+	color: #2a3a4a;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+	border-color: #c9a84c;
+	box-shadow: 0 0 0 2px rgba(201,168,76,0.25);
+}
+input[type="checkbox"]:checked + label:before,
+input[type="radio"]:checked + label:before {
+	background: #c9a84c;
+	border-color: #c9a84c;
+	color: #0f1f35;
+}
+input[type="checkbox"]:focus + label:before,
+input[type="radio"]:focus + label:before {
+	border-color: #c9a84c;
+	box-shadow: 0 0 0 1px #c9a84c;
+}
+select option {
+	color: #2a3a4a;
+	background-color: #f0f4f8;
+}
+
+/* --- Table ------------------------------------------------- */
+table th {
+	color: #0f1f35;
+}
+table tbody tr:nth-child(2n + 1) {
+	background-color: #f5f8fd;
+}
+
+/* --- Buttons ----------------------------------------------- */
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+.button {
+	background-color: #1b2d45;
+	transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:hover {
+	background-color: #263f5e;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(13,27,42,0.2);
+}
+input[type="submit"]:active,
+input[type="reset"]:active,
+input[type="button"]:active,
+.button:active {
+	background-color: #0f1f35;
+	transform: translateY(0);
+	box-shadow: none;
+}
+input[type="submit"].alt,
+input[type="reset"].alt,
+input[type="button"].alt,
+.button.alt {
+	background-color: transparent;
+	box-shadow: inset 0 0 0 2px rgba(13,27,42,0.2);
+	color: #5a6f84;
+}
+input[type="submit"].alt:hover,
+input[type="reset"].alt:hover,
+input[type="button"].alt:hover,
+.button.alt:hover {
+	background-color: rgba(13,27,42,0.04);
+	transform: translateY(-1px);
+}
+input[type="submit"].primary,
+input[type="reset"].primary,
+input[type="button"].primary,
+.button.primary {
+	background-color: #c9a84c;
+	color: #0f1f35 !important;
+	box-shadow: none;
+}
+input[type="submit"].primary:hover,
+input[type="reset"].primary:hover,
+input[type="button"].primary:hover,
+.button.primary:hover {
+	background-color: #e0bf6b;
+	color: #0f1f35 !important;
+	box-shadow: 0 4px 14px rgba(201,168,76,0.4);
+}
+input[type="submit"].primary:active,
+input[type="reset"].primary:active,
+input[type="button"].primary:active,
+.button.primary:active {
+	background-color: #b5913a;
+}
+input[type="submit"].disabled, input[type="submit"]:disabled,
+input[type="reset"].disabled, input[type="reset"]:disabled,
+input[type="button"].disabled, input[type="button"]:disabled,
+.button.disabled, .button:disabled {
+	background-color: #5a6f84 !important;
+}
+
+/* --- Icons ------------------------------------------------- */
+.icon.major {
+	background: #1b2d45;
+}
+.icon.major.accent1 {
+	background: #1b2d45;
+}
+.icon.major.accent2 {
+	background: #c9a84c;
+	color: #0f1f35;
+}
+
+/* --- Header ------------------------------------------------ */
+#header {
+	background: #0f1f35;
+	color: #8fa3bc;
+	box-shadow: 0 2px 16px rgba(0,0,0,0.35);
+}
+#header h1 a {
+	color: #c9a84c;
+	letter-spacing: 0.04em;
+}
+#header nav > ul > li a:not(.button) {
+	color: #e8eef5;
+	position: relative;
+	transition: color 0.2s ease;
+}
+#header nav > ul > li a:not(.button)::after {
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	left: 50%;
+	right: 50%;
+	height: 2px;
+	background: #c9a84c;
+	border-radius: 2px;
+	transition: left 0.25s ease, right 0.25s ease;
+}
+#header nav > ul > li a:not(.button):hover {
+	color: #c9a84c;
+}
+#header nav > ul > li a:not(.button):hover::after {
+	left: 0.5em;
+	right: 0.5em;
+}
+#header nav > ul > li.active a:not(.button) {
+	background-color: rgba(201,168,76,0.15);
+}
+#header input[type="submit"],
+#header input[type="reset"],
+#header input[type="button"],
+#header .button {
+	background-color: transparent;
+	box-shadow: inset 0 0 0 2px rgba(201,168,76,0.55);
+	color: #c9a84c;
+	transform: none;
+}
+#header input[type="submit"]:hover,
+#header input[type="reset"]:hover,
+#header input[type="button"]:hover,
+#header .button:hover {
+	background-color: rgba(201,168,76,0.1);
+	box-shadow: inset 0 0 0 2px rgba(201,168,76,0.8);
+	transform: none;
+}
+
+/* --- Dropotron --------------------------------------------- */
+.dropotron li.active > a,
+.dropotron li.active > span,
+.dropotron li:hover > a,
+.dropotron li:hover > span {
+	background: #c9a84c;
+	color: #0f1f35;
+}
+
+/* --- Banner ------------------------------------------------ */
+#banner {
+	background-color: #0d1b2a;
+	background-image: url("images/overlay.png"), linear-gradient(155deg, #0d1b2a 0%, #1e3a5f 55%, #0d1b2a 100%);
+	background-position: top left, center center;
+	background-repeat: repeat, no-repeat;
+	background-size: auto, cover;
+	background-attachment: scroll;
+}
+#banner h2 {
+	animation: bannerFadeIn 0.7s ease both;
+}
+#banner > p {
+	animation: bannerFadeIn 0.9s ease both;
+}
+#banner .actions {
+	animation: bannerFadeIn 1.1s ease both;
+}
+@keyframes bannerFadeIn {
+	from { opacity: 0; transform: translateY(20px); }
+	to   { opacity: 1; transform: translateY(0); }
+}
+#banner input[type="submit"],
+#banner input[type="reset"],
+#banner input[type="button"],
+#banner .button {
+	background-color: transparent;
+	box-shadow: inset 0 0 0 2px rgba(201,168,76,0.5);
+	color: #c9a84c;
+	min-width: 12em;
+	transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease, color 0.2s ease;
+}
+#banner input[type="submit"]:hover,
+#banner input[type="reset"]:hover,
+#banner input[type="button"]:hover,
+#banner .button:hover {
+	background-color: rgba(201,168,76,0.1);
+	box-shadow: inset 0 0 0 2px rgba(201,168,76,0.8);
+	color: #e0bf6b;
+	transform: translateY(-1px);
+}
+#banner input[type="submit"].primary,
+#banner input[type="reset"].primary,
+#banner input[type="button"].primary,
+#banner .button.primary {
+	background: #c9a84c;
+	color: #0f1f35 !important;
+	box-shadow: none;
+}
+#banner input[type="submit"].primary:hover,
+#banner input[type="reset"].primary:hover,
+#banner input[type="button"].primary:hover,
+#banner .button.primary:hover {
+	background: #e0bf6b;
+	color: #0f1f35 !important;
+	box-shadow: 0 4px 14px rgba(201,168,76,0.45);
+}
+#banner label,
+#banner .form-label {
+	color: rgba(255,255,255,0.9);
+}
+#banner input[type="text"],
+#banner input[type="password"],
+#banner input[type="email"],
+#banner select,
+#banner textarea {
+	color: #2a3a4a;
+}
+
+/* --- Main -------------------------------------------------- */
+#main > header p {
+	color: #5a6f84;
+	border-top-color: rgba(13,27,42,0.1);
+}
+
+/* --- Footer ------------------------------------------------ */
+#footer {
+	background: #0f1f35;
+}
+#footer .icons a {
+	color: #8fa3bc;
+	opacity: 0.7;
+	transition: color 0.2s ease, opacity 0.2s ease;
+}
+#footer .icons a:hover {
+	color: #c9a84c;
+	opacity: 1;
+}
+#footer .copyright {
+	color: #8fa3bc;
+}
+#footer .copyright a {
+	color: #c9a84c;
+}
+#footer .copyright a:hover {
+	color: #e0bf6b;
+}
+#footer .copyright li {
+	border-left-color: rgba(139,163,188,0.25);
+}
+
+/* --- CTA --------------------------------------------------- */
+#cta {
+	background: #c9a84c;
+	color: #0f1f35;
+}
+#cta h2, #cta h3, #cta h4, #cta h5, #cta h6 {
+	color: #0f1f35;
+}
+#cta input[type="submit"],
+#cta input[type="reset"],
+#cta input[type="button"],
+#cta .button {
+	background: #0f1f35;
+	color: #c9a84c;
+	box-shadow: none;
+}
+#cta input[type="submit"]:hover,
+#cta input[type="reset"]:hover,
+#cta input[type="button"]:hover,
+#cta .button:hover {
+	background: #1b2d45;
+	color: #e0bf6b;
+}
+#cta input[type="text"],
+#cta input[type="password"],
+#cta input[type="email"],
+#cta select,
+#cta textarea {
+	color: #0f1f35;
+	background: rgba(255,255,255,0.7);
+	border: 0;
+}
+
+/* --- Flash messages ---------------------------------------- */
+.flash {
+	background: rgba(201,168,76,0.1);
+	border: 1px solid rgba(201,168,76,0.45);
+	border-radius: 6px;
+	color: #0f1f35;
+	padding: 0.75em 1em;
+	margin: 0.5em 0 1em;
+}
+
+/* --- Mobile nav -------------------------------------------- */
+#navPanel {
+	background: #0d1b2a;
+}
+#navPanel .link {
+	color: #8fa3bc;
+}
+#navPanel .link.depth-0 {
+	color: #c9a84c;
+}
+#navButton .toggle:before {
+	background: rgba(15,31,53,0.88);
+}
+
+/* --- Bootstrap component overrides ------------------------- */
+.card.bg-dark {
+	background-color: #1b2d45 !important;
+	border: 1px solid rgba(201,168,76,0.2) !important;
+}
+.card.bg-dark h5 {
+	color: #8fa3bc;
+	font-size: 0.85em;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+}
+.card.bg-dark h2 {
+	color: #c9a84c;
+	font-size: 2.2em;
+	font-weight: 600;
+}
+thead.table-dark th,
+.table thead.table-dark th {
+	background-color: #0f1f35 !important;
+	color: #c9a84c !important;
+	border-color: rgba(201,168,76,0.2) !important;
+}
+.btn-primary {
+	background-color: #c9a84c !important;
+	border-color: #c9a84c !important;
+	color: #0f1f35 !important;
+	transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+.btn-primary:hover {
+	background-color: #e0bf6b !important;
+	border-color: #e0bf6b !important;
+	color: #0f1f35 !important;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(201,168,76,0.35) !important;
+}
+.btn-outline-dark {
+	color: #1b2d45 !important;
+	border-color: #1b2d45 !important;
+	transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease !important;
+}
+.btn-outline-dark:hover {
+	background-color: #1b2d45 !important;
+	color: #e8eef5 !important;
+	transform: translateY(-1px);
+}
+.btn-dark {
+	background-color: #1b2d45 !important;
+	border-color: #1b2d45 !important;
+	color: #e8eef5 !important;
+}
+.btn-dark:hover {
+	background-color: #263f5e !important;
+	border-color: #263f5e !important;
+}
+.btn-secondary {
+	background-color: #5a6f84 !important;
+	border-color: #5a6f84 !important;
+}
+.modal-header {
+	background-color: #0f1f35;
+	color: #e8eef5;
+	border-bottom: 1px solid rgba(201,168,76,0.3);
+}
+.modal-header .btn-close {
+	filter: invert(1) brightness(0.75);
+}
+.modal-footer {
+	border-top: 1px solid rgba(13,27,42,0.1);
+}
+.table-secondary {
+	--bs-table-bg: rgba(13,27,42,0.05) !important;
+}
+.text-muted {
+	color: #5a6f84 !important;
+}
+.text-danger {
+	color: #c0392b !important;
+}
+.form-control:focus,
+.form-select:focus {
+	border-color: #c9a84c !important;
+	box-shadow: 0 0 0 0.2rem rgba(201,168,76,0.2) !important;
+}
+.form-check-input:checked {
+	background-color: #c9a84c !important;
+	border-color: #c9a84c !important;
+}
+.form-check-input:focus {
+	border-color: #c9a84c !important;
+	box-shadow: 0 0 0 0.2rem rgba(201,168,76,0.2) !important;
+}
